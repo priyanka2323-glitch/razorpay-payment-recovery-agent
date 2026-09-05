@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/dashboard/', views.api_dashboard, name='api_dashboard'),
     path('api/payments/', views.api_payments, name='api_payments'),
     path('api/audit/<int:payment_id>/', views.api_audit_trail, name='api_audit_trail'),
-]
+    path("seed/", views.seed_data, name="seed_data"),
+    ]

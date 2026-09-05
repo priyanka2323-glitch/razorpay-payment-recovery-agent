@@ -1,12 +1,13 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.core.management import call_command
 
 # Create your views here.
 
-from django.db.models import Sum, Count,Q
+from django.db.models import Sum, Count, Q
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.db.models import Sum, Count, Q
 from .models import PaymentAttempt, RecoveryAction
 
 
@@ -113,3 +114,15 @@ def api_audit_trail(request, payment_id):
         } for a in actions],
     }
     return Response(data)
+def seed_data(request):
+    # Temporary endpoint for hackathon deployment — remove after submission
+    call_command('generate_mock_data', customers=50)
+    
+    from .models import PaymentAttempt
+    from .orchestrator import run_recovery
+    
+    for payment in PaymentAttempt.objects.filter(status="failed"):
+        run_recovery(payment, max_loops=5)
+    
+    success_count = PaymentAttempt.objects.filter(status="success").count()
+    return JsonResponse({"status": "seeded", "success_count": success_count})
