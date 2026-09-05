@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.management import call_command
-
+from django.db import connection
 # Create your views here.
 
 from django.db.models import Sum, Count, Q
@@ -126,3 +126,7 @@ def seed_data(request):
     
     success_count = PaymentAttempt.objects.filter(status="success").count()
     return JsonResponse({"status": "seeded", "success_count": success_count})
+def fix_schema(request):
+    with connection.cursor() as cursor:
+        cursor.execute("ALTER TABLE agent_customer ALTER COLUMN phone TYPE VARCHAR(15);")
+    return JsonResponse({"status": "schema fixed"})
