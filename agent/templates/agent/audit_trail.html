@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audit Trail</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #0f1117; color: #e5e5e5; padding: 40px; }
+        a { color: #f5a623; }
+        .step { background: #1a1d27; padding: 16px; border-radius: 8px; margin-bottom: 12px; }
+        .action { color: #f5a623; font-weight: bold; }
+        .outcome { color: #4caf50; }
+        .reasoning { color: #aaa; font-size: 14px; margin-top: 6px; }
+    </style>
+</head>
+<body>
+    <p><a href="/payment_list/">← Back to payments</a></p>
+    <h1>Audit Trail: {{ payment.customer.name }} — ₹{{ payment.amount }}</h1>
+    <p>Failure code: {{ payment.failure_code }} | Status: {{ payment.status }}</p>
+
+    {% for action in actions %}
+    <div class="step">
+        <div class="action">{{ action.action_taken }} → {{ action.outcome }}</div>
+        <div class="reasoning">{{ action.reasoning }}</div>
+        <div style="font-size:12px; color:#666;">{{ action.timestamp }}</div>
+    </div>
+    {% endfor %}
+</body>
+</html>

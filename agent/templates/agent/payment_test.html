@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payments</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #0f1117; color: #e5e5e5; padding: 40px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #2a2d3a; }
+        a { color: #f5a623; }
+        .success { color: #4caf50; }
+        .failed { color: #e74c3c; }
+    </style>
+</head>
+<body>
+    <p><a href="/">← Back to dashboard</a></p>
+    <h1>All Payments</h1>
+    <table>
+        <tr><th>Customer</th><th>Amount</th><th>Failure Code</th><th>Status</th><th>Audit Trail</th></tr>
+        {% for p in payments %}
+        <tr>
+            <td>{{ p.customer.name }}</td>
+            <td>₹{{ p.amount }}</td>
+            <td>{{ p.failure_code }}</td>
+            <td class="{{ p.status }}">{{ p.status }}</td>
+            <td><a href="/audit-trail/{{ p.id }}/">View →</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
