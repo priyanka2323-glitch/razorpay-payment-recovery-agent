@@ -5,9 +5,9 @@ from django.db import models
 # Create your models here.
 class Customer(models.Model):
     name=models.CharField(max_length=50)
-    phone=models.IntegerField(max_length=15)
+    phone=models.CharField(max_length=15)
     email=models.EmailField()
-    preferred_channel=models.CharField(max_length=20,default=email)
+    preferred_channel=models.CharField(max_length=20,default='email')
     dnd=models.BooleanField(default=False)
 class PaymentAttempt(models.Model):
     FAILURE_CODES = [
