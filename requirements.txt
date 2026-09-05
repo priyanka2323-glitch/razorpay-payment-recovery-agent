@@ -14,6 +14,7 @@ charset-normalizer==3.5.1
 chromadb==1.5.9
 click==8.5.0
 distro==1.9.0
+dj-database-url==3.1.2
 Django==6.1
 django-cors-headers==4.9.0
 djangorestframework==3.18.0
@@ -65,6 +66,7 @@ overrides==7.7.0
 packaging==26.3
 propcache==0.5.2
 protobuf==7.36.0
+psycopg2-binary==2.9.12
 pybase64==1.5.0
 pydantic==2.13.4
 pydantic-settings==2.15.0
